@@ -14,7 +14,6 @@ module Nmap
     include Enumerable
 
     # Path of the Nmap XML scan file
-    attr_reader :path
 
     #
     # Creates a new XML object.
@@ -28,9 +27,8 @@ module Nmap
     # @yieldparam [XML] xml
     #   The newly created XML object.
     #
-    def initialize(path)
-      @path = File.expand_path(path)
-      @doc = Nokogiri::XML(open(@path))
+    def initialize(xml)
+      @doc = Nokogiri::XML(xml)
 
       yield self if block_given?
     end
@@ -205,7 +203,7 @@ module Nmap
     #   The path of the XML scan file.
     #
     def to_s
-      @path.to_s
+      @doc.to_s
     end
 
   end
